@@ -1,4 +1,4 @@
-const fetch = import('node-fetch');
+const fetch = require('node-fetch');
 const ahniEndpoints = require('../constants/ahniEndpoints');
 const schema = require("../schema/unmute");
 const ms = require("../functions/parseMS");
@@ -31,7 +31,7 @@ class AhniClient {
         const body = { msg: msg, uid: userID };
         const fetch = require("node-fetch");
 
-        return fetch('https://ahni.dev/api/v1/fun/chat', {
+        return fetch('https://akira.gay/api/v1/fun/chat', {
             method: 'POST',
             body: JSON.stringify(body),
             headers: { "authorization": this.KEY, 'Content-Type': 'application/json' },
@@ -214,7 +214,11 @@ class AhniClient {
                     const guild = await client.guilds.cache.get(doc.guildID);
                     await guild.members.fetch(doc.memberID).then(use => {
                         if (doc.roles.length > 0) {
-                            use.roles.set(doc.roles)
+                            if (use.roles.has(use.guild.roles.premiumSubscriberRole.id)) {
+                                use.roles.set([doc.roles, use.guild.roles.premiumSubscriberRole.id])
+                            } else {
+                                use.roles.add(doc.roles)
+                            }
                             return;
                         } else {
                             return use.roles.set([]);
