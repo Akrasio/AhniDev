@@ -57,7 +57,7 @@ class AhniClient {
             guildID: member.guild.id,
             memberID: member.user.id,
             reason: reason || "No Reason Given",
-            roles: member.roles.cache.filter(r => r.id !== member.guild.id && !r.managed).map(r => r.id) || [],
+            roles: member.roles.cache.filter(r => r.id !== member.guild.id).map(r => r.id) || [],
             time: (parseInt(ms(time).toString()) + Date.now()) || (parseInt(ms("1m").toString()) + Date.now()),
             timeMS: ms(time.toString())
         });
@@ -81,10 +81,15 @@ class AhniClient {
                         await client.guilds.fetch(doc.guildID).then(async guilds => {
                             await guilds.members.fetch(doc.memberID).then(async (use) => {
                                 if (doc.roles.length > 0) {
-                                    use.roles.set(doc.roles)
-                                    await client.emit('timedUnmute', use, guilds)
-                                    await schema.deleteOne(doc)
-                                    return;
+                                    if (use.roles.cache.has(use.guild.roles.premiumSubscriberRole.id)) {
+                                        await use.roles.set(doc.roles, use.guild.roles.premiumSubscriberRole.id)
+                                        await client.emit('timedUnmute', use, { guild: use.guild })
+                                        await schema.deleteOne(doc)
+                                    } else {
+                                        await use.roles.set(doc.roles)
+                                        await client.emit('timedUnmute', use, { guild: use.guild })
+                                        await schema.deleteOne(doc)
+                                    }
                                 } else {
                                     await use.roles.set([]);
                                     await client.emit('timedUnmute', use, { guild: use.guild })
@@ -206,7 +211,7 @@ class AhniClient {
      * @returns {Promise<void>}
      */
     async forced(client, user) {
-        if (!client) throw new Error('[ AhniDev ] Error: Client is not defined in remind function')
+        if (!client) throw new Error('[ AhniDev ] Error: Client is not defined in forced unmute function')
         schema.find({}, function (err, docs) {
             if (err) return console.log(err)
             docs.forEach(async doc => {
@@ -214,10 +219,10 @@ class AhniClient {
                     const guild = await client.guilds.cache.get(doc.guildID);
                     await guild.members.fetch(doc.memberID).then(use => {
                         if (doc.roles.length > 0) {
-                            if (use.roles.has(use.guild.roles.premiumSubscriberRole.id)) {
+                            if (use.roles.cache.has(use.guild.roles.premiumSubscriberRole.id)) {
                                 use.roles.set([doc.roles, use.guild.roles.premiumSubscriberRole.id])
                             } else {
-                                use.roles.add(doc.roles)
+                                use.roles.set([doc.roles])
                             }
                             return;
                         } else {
