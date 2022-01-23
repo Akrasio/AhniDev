@@ -16,16 +16,16 @@ class AhniClient {
      */
 
     async nsfw(img) {
-        return fetch(`${ahniEndpoints.base}${img}`, {
-            method: 'GET',
-            headers: { "Authorization": this.KEY }
-        })
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/nsfw/img?end=${img}&KEY=${this.KEY}`)
             .then(res => res.json())
             .then(json => {
                 if (json == undefined) throw Error(`[AhniDev]: ${img} is not a valid endpoint!`)
-                return json.result
+                return json
             })
-    };
+
+        return data
+    }
 
     async chat(msg, userID) {
         const body = { msg: msg, uid: userID };
@@ -266,6 +266,213 @@ class AhniClient {
             return null;
 
         }
+    }
+    async cat() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/animals/cat?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
+    }
+    async dog() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/animals/dog?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
+    }
+
+    async panda() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/animals/panda?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
+    }
+
+    async bird() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/animals/bird?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
+    }
+
+    async uuid() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/others/uuid?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
+    }
+
+    async joke() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/others/joke?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
+    }
+
+    async puns() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/others/puns?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
+    }
+
+    async hug() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/others/hug?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
+    }
+
+    async kiss() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/others/kiss?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
+    }
+
+    async insults() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/others/insults?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
+    }
+
+    async flirt() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/others/flirt?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
+    }
+
+    async word() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/others/word?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
+    }
+
+    async doesnotexists() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/others/doesnotexists?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
+    }
+
+    async quote() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/others/quote?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
+    }
+
+    async uselessweb() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/others/uselessweb?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
+    }
+
+    async truth() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/others/truth?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
+    }
+
+    async dare() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/others/dare?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
+    }
+
+    async number() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/others/number?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
+    }
+
+    async password() {
+        if (this.KEY === null) return nokey
+        let data = await fetch(`${ahniEndpoints.base}/v2/others/password?KEY=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                return json
+            })
+
+        return data
     }
     async connectToMongoDB(MongoDB) {
         let connected = true;

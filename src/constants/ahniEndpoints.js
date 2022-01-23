@@ -1,5 +1,5 @@
 module.exports = {
-	base: "https://akira.gay/api/v1/nsfw/",
+	base: "https://akira.gay",
 	fun: "https://akira.gay/api/v1/fun/",
 	endpoints: {
 		ass: "https://akira.gay/api/v1/nsfw/ass",
@@ -22,9 +22,6 @@ module.exports = {
 		kiss: "https://akira.gay/api/v1/sfw/kiss",
 		pantsu: "https://akira.gay/api/v1/nsfw/pantsu",
 		blow: "https://akira.gay/api/v1/nsfw/blow",
-		chat: "https://akira.gay/api/v1/fun/chat",
-		godSearch: "https://akira.gay/api/v1/image/god?search=",
-		welcome: "https://akira.gay/api/v1/image/welcome?",
-		onlyImage: "https://akira.gay/api/v1/image/only?message="
+		chat: "https://akira.gay/api/v1/fun/chat"
 	}
 }
