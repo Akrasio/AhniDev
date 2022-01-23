@@ -1,6 +1,6 @@
 {
   "name": "ahnidev",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A utility package for discord bots to use.",
   "main": "ahni.js",
   "scripts": {
