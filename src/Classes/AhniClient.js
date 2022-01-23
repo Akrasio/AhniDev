@@ -81,15 +81,9 @@ class AhniClient {
                         await client.guilds.fetch(doc.guildID).then(async guilds => {
                             await guilds.members.fetch(doc.memberID).then(async (use) => {
                                 if (doc.roles.length > 0) {
-                                    if (use.roles.cache.has(use.guild.roles.premiumSubscriberRole.id)) {
-                                        await use.roles.set(doc.roles, use.guild.roles.premiumSubscriberRole.id)
-                                        await client.emit('timedUnmute', use, { guild: use.guild })
-                                        await schema.deleteOne(doc)
-                                    } else {
-                                        await use.roles.set(doc.roles)
-                                        await client.emit('timedUnmute', use, { guild: use.guild })
-                                        await schema.deleteOne(doc)
-                                    }
+                                    await use.roles.set(doc.roles)
+                                    await client.emit('timedUnmute', use, { guild: use.guild })
+                                    await schema.deleteOne(doc)
                                 } else {
                                     await use.roles.set([]);
                                     await client.emit('timedUnmute', use, { guild: use.guild })
