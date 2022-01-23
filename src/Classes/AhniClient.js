@@ -17,7 +17,7 @@ class AhniClient {
 
     async nsfw(img) {
         if (this.KEY === null) return nokey
-        let data = await fetch(`${ahniEndpoints.base}/v2/nsfw/img?end=${img}&KEY=${this.KEY}`)
+        let data = await fetch(`${ahniEndpoints.base}/v2/nsfw/img?end=${img}&apikey=${this.KEY}`)
             .then(res => res.json())
             .then(json => {
                 if (json == undefined) throw Error(`[AhniDev]: ${img} is not a valid endpoint!`)
