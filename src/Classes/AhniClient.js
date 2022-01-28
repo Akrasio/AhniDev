@@ -31,7 +31,7 @@ class AhniClient {
         const body = { msg: msg, uid: userID };
         const fetch = require("node-fetch");
 
-        return fetch('https://akira.gay/api/v1/fun/chat', {
+        return fetch('https://ahni.dev/api/v1/fun/chat', {
             method: 'POST',
             body: JSON.stringify(body),
             headers: { "authorization": this.KEY, 'Content-Type': 'application/json' },
@@ -106,7 +106,7 @@ class AhniClient {
         if (message == null || message == undefined) throw new Error('[ AhniDev ] Error: Message is not defined in quoteId function')
         const id = message;
         let a = [];
-        const url = message.match(/(?:https:\/\/discord.com\/channels\/[0-9].*[0-9])/)
+        const url = message.match(/(?:https:\/\/discord.com\/channels\/[0-9].*[0-9]|https:\/\/ptb.discord.com\/channels\/[0-9].*[0-9]|https:\/\/canary.discord.com\/channels\/[0-9].*[0-9])/)
         try {
             if (Number(id) && !url) {
                 const a = await channel.messages.fetch(id).then(
@@ -119,8 +119,8 @@ class AhniClient {
                                 username: m.author.username
                             }
                         }
-                        if (m.embeds.length > 0) return {
-                            content: 'The requested message has one or more embeds, So it cant be read yet...',
+                        if (m.embeds.length > 0 && !m.content) return {
+                            content: 'The requested message has one or more embeds, and it cant be read yet...',
                             author: {
                                 accentColor: m.author.accentColor,
                                 avatarURL: m.author.avatarURL,
@@ -155,8 +155,8 @@ class AhniClient {
                                         username: m.author.username
                                     }
                                 }
-                                if (m.embeds.length > 0) return {
-                                    content: 'This message has one or more embeds, So it cant be read yet...',
+                                if (m.embeds.length > 0 && !m.content) return {
+                                    content: 'This message has one or more embeds, and it cant be read yet...',
                                     author: {
                                         accentColor: m.author.accentColor,
                                         avatarURL: m.author.avatarURL,
