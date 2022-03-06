@@ -134,7 +134,7 @@ class AhniClient {
                             author: {
                                 accentColor: client.user.accentColor,
                                 avatarURL: client.user.avatarURL({ dynamic: true, size: 4096, format: "png" }),
-                                username: client.user.username
+                                username: client.user.tag
                             }
                         };
                     })
@@ -171,7 +171,7 @@ class AhniClient {
                                 author: {
                                     accentColor: client.user.accentColor,
                                     avatarURL: client.user.avatarURL,
-                                    username: client.user.username
+                                    username: client.user.tag
                                 }
                             }
                         })
@@ -181,7 +181,7 @@ class AhniClient {
                     author: {
                         accentColor: client.user.accentColor,
                         avatarURL: client.user.avatarURL,
-                        username: client.user.username
+                        username: client.user.tag
                     }
                 }
             } else {
@@ -190,7 +190,7 @@ class AhniClient {
                     author: {
                         accentColor: client.user.accentColor,
                         avatarURL: client.user.avatarURL,
-                        username: client.user.username
+                        username: client.user.tag
                     }
                 }
             }
