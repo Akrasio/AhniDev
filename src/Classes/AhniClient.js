@@ -151,16 +151,16 @@ class AhniClient {
                                     content: 'The requested message is in an NSFW channel so i will not repost it here!',
                                     author: {
                                         accentColor: m.author.accentColor,
-                                        avatarURL: m.author.avatarURL,
-                                        username: m.author.username
+                                        avatarURL: m.author.avatarURL({ dynamic: true, size: 4096, format: "png" }),
+                                        username: m.author.tag
                                     }
                                 }
                                 if (m.embeds.length > 0 && !m.content) return {
                                     content: 'This message has one or more embeds, and it cant be read yet...',
                                     author: {
                                         accentColor: m.author.accentColor,
-                                        avatarURL: m.author.avatarURL,
-                                        username: m.author.username
+                                        avatarURL: m.author.avatarURL({ dynamic: true, size: 4096, format: "png" }),
+                                        username: m.author.tag
                                     }
                                 };
                                 return m;
