@@ -31,15 +31,15 @@ class AhniClient {
         const body = { msg: msg, uid: userID };
         const fetch = require("node-fetch");
 
-        return fetch('https://ahni.dev/api/v1/fun/chat', {
-            method: 'POST',
-            body: JSON.stringify(body),
-            headers: { "authorization": this.KEY, 'Content-Type': 'application/json' },
+        return fetch(`https://ahni.dev/v2/others/chat?apikey=${this.KEY}&msg=${msg}&uid=${userID}`, {
+            method: 'GET',
+//          body: JSON.stringify(body),
+            headers: { /*"authorization": this.KEY, */'Content-Type': 'application/json' },
         })
             .then(res => res.json())
             .then(json => {
                 if (json == undefined) throw Error(`[AhniDev]: ${"chat"} is not a valid endpoint!`)
-                return json.response
+                return json.result
             })
     }
 
