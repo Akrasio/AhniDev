@@ -8,6 +8,7 @@ class AhniClient {
         if (!options.KEY) throw new Error("No key found for Ahni API");
         this.KEY = options.KEY,
             this.client = options.client,
+            this.url = options.url,
             this.MongoDBUri = options.MongoDB;
     };
     /**
@@ -16,8 +17,8 @@ class AhniClient {
      */
 
     async nsfw(img) {
-        if (this.KEY === null) return nokey
-        let data = await fetch(`${ahniEndpoints.base}/v2/nsfw/img?end=${img}&apikey=${this.KEY}`)
+        if (this.KEY === null) return nokey;
+        let data = await fetch(`${this.url || ahniEndpoints.base}/v2/nsfw/img?end=${img}&apikey=${this.KEY}`)
             .then(res => res.json())
             .then(json => {
                 if (json == undefined) throw Error(`[AhniDev]: ${img} is not a valid endpoint!`)
