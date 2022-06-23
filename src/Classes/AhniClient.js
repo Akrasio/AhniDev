@@ -32,7 +32,7 @@ class AhniClient {
         const body = { msg: msg, uid: userID };
         const fetch = require("node-fetch");
 
-        return fetch(`https://${this.url ||ahniEndpoints.base}/v2/others/chat?apikey=${this.KEY}&msg=${msg}&uid=${userID}`, {
+        return fetch(`${this.url ||ahniEndpoints.base}/v2/others/chat?apikey=${this.KEY}&msg=${msg}&uid=${userID}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         })
