@@ -34,8 +34,7 @@ class AhniClient {
 
         return fetch(`https://${this.url ||ahniEndpoints.base}/v2/others/chat?apikey=${this.KEY}&msg=${msg}&uid=${userID}`, {
             method: 'GET',
-            body: JSON.stringify(body),
-            headers: { "authorization": this.KEY, 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
         })
             .then(res => res.json())
             .then(json => {
