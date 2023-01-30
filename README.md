@@ -8,7 +8,7 @@ npm i ahnidev
 # How to use
 ```js
 const { AhniClient } = require('ahnidev');
-const api = new AhniClient({ KEY: "Your-API-Key-Here" })
+const Ahni = new AhniClient({ KEY: "Your-API-Key-Here", url:"https://kyra.tk" }) // URL Required if main domain changed.
 
 // NSFW Endpoints
 api.nsfw("thighs").then(result => {
