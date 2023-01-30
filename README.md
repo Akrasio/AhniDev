@@ -124,11 +124,11 @@ client.on("guildMemberAdd", (member) => {
 --------------------------
 ### || NSFW  ||
 
-- Just read [Docs](https://docs.ahni.dev) please...
+- Just read Docs please...
 
 ### || SFW  ||
 - chat
 
-For an up to date list on endpoints visit [ahni.dev](https://docs.ahni.dev) | [ahni.dev](https://docs.ahni.dev)
+For an up to date list on endpoints visit [kyra.tk](https://kyra.tk) | [kyra.tk](https://kyra.tk)
 
-For support join our [discord](https://discord.gg/invite/8SKspRB)
+For support join our [discord](https://discord.gg/invite/P5SbJypjCF)
