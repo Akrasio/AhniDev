@@ -44,7 +44,7 @@ api.autopostCount("botId", { serverCount: 2, botList: "disforge", botListKey: "T
 const { Client } = require('discord.js');
 const client = new Client({ intents: ["GUILDS", "GUILD_MEMBERS"]});// Not sure about guild_members..?
 const { AhniClient } = require('ahnidev');
-const Ahni = new AhniClient({ KEY: "Your-API-Key-Here" })
+const Ahni = new AhniClient({ KEY: "Your-API-Key-Here", url:"https://kyra.tk" }) // URL Required if main domain changed.
 client.Ahni = Ahni;
 
 client.Ahni.connectToMongoDB("Your-mongoDB-URL-Here");
