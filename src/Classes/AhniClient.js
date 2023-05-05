@@ -27,7 +27,17 @@ class AhniClient {
 
         return data
     }
+    async others(img) {
+        if (this.KEY === null) return nokey;
+        let data = await fetch(`${this.url || ahniEndpoints.base}/v2/others/${img}&apikey=${this.KEY}`)
+            .then(res => res.json())
+            .then(json => {
+                if (json == undefined) throw Error(`[AhniDev]: ${img} is not a valid endpoint!`)
+                return json
+            })
 
+        return data
+    }
     async chat(msg, userID) {
         const body = { msg: msg, uid: userID };
         const fetch = require("node-fetch");
