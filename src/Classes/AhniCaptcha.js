@@ -169,7 +169,7 @@ class AhniCaptcha extends EventEmitter {
             joined.forEach(async memb => {
                 let m = member.guild.members.cache.get(memb)
                 await m.send("You have been kicked from " + member.guild.name + " for: Join Raid prevention")
-                m.kick("Join Raid prevention");
+                m.kick({reason:"Join Raid prevention"});
             })
         }
         setTimeout(() => {
@@ -340,7 +340,9 @@ class AhniCaptcha extends EventEmitter {
                             await channel.send({ embeds: [captchaIncorrect] })
                                 .then(async msg => {
                                     await setTimeout(() => msg.delete(), 10000);
+                                    if (this.options.kickOnFailure == true){
                                     await member.kick({ reason: "Failed to Pass CAPTCHA" })
+                                    }
                                 });
                             if (channel.type == "GUILD_TEXT" && channel.name == "captcha_" + member.user.id) {
                                 setTimeout(() => {
@@ -419,7 +421,9 @@ class AhniCaptcha extends EventEmitter {
                             if (channel.type === "GUILD_TEXT") await captchaEmbed.delete();
                             await channel.send({ embeds: [captchaIncorrect] })
                                 .then(async msg => {
-                                    await member.kick("Failed to Pass CAPTCHA")
+                                    if (this.options.kickOnFailure){
+                                        await member.kick({reason:"Failed to Pass CAPTCHA"})
+                                    }
                                     setTimeout(() => msg.delete(), 5400);
                                 });
                             if (channel.type == "GUILD_TEXT" && channel.name == "captcha_" + member.user.id) {
