@@ -36,7 +36,7 @@ const captchaOptions = {
     customFailureEmbed: undefined
 }
 
-class AhniCaptcha {
+class AhniCaptcha extends EventEmitter {
 
     /**
     * Creates a New Instance of the Captcha Class.
@@ -92,6 +92,7 @@ class AhniCaptcha {
     * });
        */
     constructor(client, options = {}) {
+        super();
         const structure = `
         new Captcha(Discord#Client, {
             guildID: "Guild ID Here",
