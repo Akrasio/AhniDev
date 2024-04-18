@@ -329,7 +329,7 @@ class AhniCaptcha extends EventEmitter {
                     .then(async responses => {
                         if (!responses.size) { //If no response was given, CAPTCHA is fully cancelled here
                             //emit timeout event
-                            captchaData.emit("timeout", {
+                            AhniCaptcha.emit("timeout", {
                                 member: member,
                                 responses: captchaResponses,
                                 attempts: attemptsTaken || 1,
@@ -350,7 +350,7 @@ class AhniCaptcha extends EventEmitter {
                         }
 
                         //emit answer event
-                        captchaData.emit("answer", {
+                        AhniCaptcha.emit("answer", {
                             member: member,
                             response: String(responses.first()),
                             attempts: attemptsTaken || 1,
@@ -364,7 +364,7 @@ class AhniCaptcha extends EventEmitter {
                         if (channel.type === "GUILD_TEXT") await responses.first().delete();
                         if (answer === captcha.text) { //If the answer is correct, this code will execute
                             //emit success event
-                            captchaData.emit("success", {
+                            AhniCaptcha.emit("success", {
                                 member: member,
                                 responses: captchaResponses,
                                 attempts: attemptsTaken,
@@ -408,7 +408,7 @@ class AhniCaptcha extends EventEmitter {
                             //If there are no attempts left
 
                             //emit failure event
-                            captchaData.emit("failure", {
+                            AhniCaptcha.emit("failure", {
                                 member: member,
                                 responses: captchaResponses,
                                 attempts: attemptsTaken,
