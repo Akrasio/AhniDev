@@ -340,7 +340,7 @@ class AhniCaptcha extends EventEmitter {
                             await channel.send({ embeds: [captchaIncorrect] })
                                 .then(async msg => {
                                     await setTimeout(() => msg.delete(), 10000);
-                                    if (this.options.kickOnFailure == true){
+                                    if (captchaData.options.kickOnFailure == true){
                                     await member.kick({ reason: "Failed to Pass CAPTCHA" })
                                     }
                                 });
@@ -421,7 +421,7 @@ class AhniCaptcha extends EventEmitter {
                             if (channel.type === "GUILD_TEXT") await captchaEmbed.delete();
                             await channel.send({ embeds: [captchaIncorrect] })
                                 .then(async msg => {
-                                    if (this.options.kickOnFailure){
+                                    if (captchaData.options.kickOnFailure){
                                         await member.kick({reason:"Failed to Pass CAPTCHA"})
                                     }
                                     setTimeout(() => msg.delete(), 5400);
