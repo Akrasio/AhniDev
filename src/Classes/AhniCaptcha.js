@@ -36,7 +36,7 @@ const captchaOptions = {
     customFailureEmbed: undefined
 }
 
-class AhniCaptcha extends EventEmitter {
+class AhniCaptcha {
 
     /**
     * Creates a New Instance of the Captcha Class.
