@@ -92,8 +92,6 @@ class AhniCaptcha extends EventEmitter {
     * });
        */
     constructor(client, options = {}) {
-        super();
-
         const structure = `
         new Captcha(Discord#Client, {
             guildID: "Guild ID Here",
