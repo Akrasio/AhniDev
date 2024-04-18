@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const EventEmitter = require('node:events');
+const EventEmitter = require('events');
 const createCaptcha = require("../functions/createCaptcha");
 const handleChannelType = require("../functions/handleChannels");
 
