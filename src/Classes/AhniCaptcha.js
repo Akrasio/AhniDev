@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const EventEmitter = require("events");
+const EventEmitter = require('events');
 const createCaptcha = require("../functions/createCaptcha");
 const handleChannelType = require("../functions/handleChannels");
 
@@ -26,7 +26,7 @@ const captchaOptions = {
     roleID: String,
     channelID: undefined,
     sendToTextChannel: true,
-    kickOnFailure: true,
+    kickOnFailure: false,
     caseSensitive: true,
     attempts: 4,
     timeout: 240000,
@@ -93,7 +93,6 @@ class AhniCaptcha extends EventEmitter {
        */
     constructor(client, options = {}) {
         super();
-
         const structure = `
         new Captcha(Discord#Client, {
             guildID: "Guild ID Here",
@@ -170,7 +169,7 @@ class AhniCaptcha extends EventEmitter {
             joined.forEach(async memb => {
                 let m = member.guild.members.cache.get(memb)
                 await m.send("You have been kicked from " + member.guild.name + " for: Join Raid prevention")
-                m.kick("Join Raid prevention");
+                m.kick({reason:"Join Raid prevention"});
             })
         }
         setTimeout(() => {
@@ -206,7 +205,7 @@ class AhniCaptcha extends EventEmitter {
     *     captcha.present(member);
     * });
     */
-    async present(member, channel, roleID) {
+    async present(member, channel, roleID, data) {
         if (!member) return console.log(`[ AhniDev Captcha ] Error: No Discord Member was Provided!\nNeed Help? Join our Discord Server at 'https://discord.gg/P2g24jp'`);
         const user = member.user
         const captcha = await createCaptcha(this.options.caseSensitive).catch(e => { return console.log(e) })
@@ -249,13 +248,18 @@ class AhniCaptcha extends EventEmitter {
                     channel = (await this.client.guilds.fetch(this.options.guildID)).channels.resolve(this.options.channelID)
                 } else {
                     channel = await user.createDM()
-                }
+		}
                 captchaEmbed = await channel.send({
                     embeds: [captchaPrompt],
                     files: [
                         { name: "captcha.png", attachment: captcha.image }
                     ]
-                })
+                }).catch(err=>{
+				console.log(err.message)
+                            return this.emit("error", {
+                                member: member,
+                            })
+		})
             } catch {
                 if (this.options.channelID) {
                     if (member.guild.channels.cache.get(this.options.channelID).isText()) {
@@ -341,7 +345,9 @@ class AhniCaptcha extends EventEmitter {
                             await channel.send({ embeds: [captchaIncorrect] })
                                 .then(async msg => {
                                     await setTimeout(() => msg.delete(), 10000);
+                                    if (this.captchaData.options.kickOnFailure == true){
                                     await member.kick({ reason: "Failed to Pass CAPTCHA" })
+                                    }
                                 });
                             if (channel.type == "GUILD_TEXT" && channel.name == "captcha_" + member.user.id) {
                                 setTimeout(() => {
@@ -420,7 +426,9 @@ class AhniCaptcha extends EventEmitter {
                             if (channel.type === "GUILD_TEXT") await captchaEmbed.delete();
                             await channel.send({ embeds: [captchaIncorrect] })
                                 .then(async msg => {
-                                    await member.kick("Failed to Pass CAPTCHA")
+                                    if (this.captchaData.options.kickOnFailure){
+                                        await member.kick({reason:"Failed to Pass CAPTCHA"})
+                                    }
                                     setTimeout(() => msg.delete(), 5400);
                                 });
                             if (channel.type == "GUILD_TEXT" && channel.name == "captcha_" + member.user.id) {
